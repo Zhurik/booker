@@ -1,0 +1,11 @@
+[package]
+name = "booker"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1.44.1", features = ["full"] }
+teloxide = { version = "0.13", features = ["macros"] }
+chrono = "0.4.38"
+reqwest = "0.12.14"
+clap = { version = "4.0", features = ["derive", "env"] }
