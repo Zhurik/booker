@@ -154,6 +154,8 @@ dependencies = [
  "chrono",
  "clap",
  "reqwest 0.12.18",
+ "serde",
+ "serde_json",
  "teloxide",
  "tokio",
 ]

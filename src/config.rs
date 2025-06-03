@@ -11,5 +11,5 @@ pub struct Config {
     pub spot_id: String,
 
     #[arg(long, env, default_value = constants::UNSPOT_URL)]
-    pub unspot_url: String
+    pub unspot_url: String,
 }
