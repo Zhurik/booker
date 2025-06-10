@@ -33,3 +33,8 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         path: ${{ steps.build.outputs.file_name }}
+
+    - name: curl
+      uses: sozo-design/curl@v1.0.2
+      with:
+        args: -X PUT --upload-file ${{ steps.build.outputs.file_name }} https://${{ secrets.KEY_ID }}:{{ $secrets.KEY_SECRET }}@zhurik-deb.ar.cloud.ru/pool/1/universe/upload
