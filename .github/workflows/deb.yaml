@@ -1,0 +1,42 @@
+name: Deb Static Build
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: cargo build --verbose --release
+
+    - name: Copy only binary
+      run: mkdir target/release/output && mv target/release/booker target/release/output/
+
+    - uses: jiro4989/build-deb-action@v4
+      with:
+        package: booker
+        package_root: target/release/output/
+        maintainer: zhurik
+        version: ${{ github.ref }} # refs/tags/v*.*.*
+        arch: 'amd64' # optional
+        homepage: https://github.com/Zhurik/booker
+      id: build
+
+    # Check a created deb file
+    - name: Check a path of deb file
+      run: ls ${{ steps.build.outputs.file_name }}
+
+    - uses: actions/upload-artifact@v4
+      with:
+        path: ${{ steps.build.outputs.file_name }}
+
+    - name: curl
+      uses: sozo-design/curl@v1.0.2
+      with:
+        args: -X PUT -F  "file=@${{ steps.build.outputs.file_name }}" https://${{ secrets.KEY_ID }}:${{ secrets.KEY_SECRET }}@zhurik-deb.ar.cloud.ru/pool/main/universe/upload
