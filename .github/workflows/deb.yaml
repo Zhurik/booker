@@ -12,10 +12,13 @@ jobs:
     - name: Build
       run: cargo build --verbose --release
 
+    - name: Copy only binary
+      run: mkdir target/release/output && mv target/release/booker target/release/output/
+
     - uses: jiro4989/build-deb-action@v4
       with:
         package: booker
-        package_root: target/release/
+        package_root: target/release/output/
         maintainer: zhurik
         version: 0.1.0
         # version: ${{ github.ref }} # refs/tags/v*.*.*
