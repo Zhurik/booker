@@ -4,10 +4,25 @@ on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - name: Deb Build
-      uses: ebbflow-io/cargo-deb-amd64-ubuntu@1.0
+    - uses: actions/checkout@v4
+    - name: Build
+      run: cargo build --verbose --release
+
+    - uses: jiro4989/build-deb-action@v4
       with:
-        cmd: bash build/pre.sh; cargo deb --target=x86_64-unknown-linux-musl
+        package: booker
+        package_root: target/release/
+        maintainer: zhurik
+        version: 0.1.0
+        # version: ${{ github.ref }} # refs/tags/v*.*.*
+        arch: 'amd64' # optional
+        homepage: https://github.com/Zhurik/booker
+      id: build
+
+    # Check a created deb file
+    - name: Check a path of deb file
+      run: ls ${{ steps.build.outputs.file_name }}
