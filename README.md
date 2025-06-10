@@ -7,7 +7,7 @@
 ### Ubuntu
 
 ```bash
-echo "deb [trusted=yes] https://zhurik-deb.ar.cloud.ru 1 universe" | sudo tee -a /etc/apt/sources.list
+echo "deb [trusted=yes] https://zhurik-deb.ar.cloud.ru main universe" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install booker
 ```
