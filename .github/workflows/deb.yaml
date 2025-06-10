@@ -1,6 +1,9 @@
 name: Deb Static Build
 
-on: [push]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -20,8 +23,7 @@ jobs:
         package: booker
         package_root: target/release/output/
         maintainer: zhurik
-        version: 0.1.0
-        # version: ${{ github.ref }} # refs/tags/v*.*.*
+        version: ${{ github.ref }} # refs/tags/v*.*.*
         arch: 'amd64' # optional
         homepage: https://github.com/Zhurik/booker
       id: build

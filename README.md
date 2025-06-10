@@ -4,8 +4,10 @@
 
 ## Установка
 
-Клоним себе репу, а потом собираем
+### Ubuntu
 
 ```bash
-cargo build --release
+echo "deb [trusted=yes] https://zhurik-deb.ar.cloud.ru 1 universe" | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install booker
 ```
